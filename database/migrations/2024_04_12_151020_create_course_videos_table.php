@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         // migrate fresh: migrasi ulang (cocok kalo baru mulai)
-        // 
+        
+        // to rollback
+        // php artisan migrate:status, cek step. cms e4.
         Schema::create('course_videos', function (Blueprint $table) {
             $table->id();
             $table->string('name');
