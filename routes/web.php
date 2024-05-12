@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseVideoController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscribeTransactionController;
@@ -10,8 +11,8 @@ use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
-Route::get('/details/{course:slug', [FrontController::class, 'details'])->name('front.details');
-Route::get('/details/{category:slug', [FrontController::class, 'category'])->name('front.category');
+Route::get('/details/{course:slug}', [FrontController::class, 'details'])->name('front.details');
+Route::get('/category/{category:slug}', [FrontController::class, 'category'])->name('front.category');
 Route::get('/pricing', [FrontController::class, 'pricing'])->name('front.pricing');
 
 Route::get('/dashboard', function () {
@@ -25,7 +26,7 @@ Route::middleware('auth')->group(function () {
 
     // must logged in before create a transaction
     Route::get('/checkout', [FrontController::class, 'checkout'])->name('front.checkout')->middleware('role:student');
-    Route::get('/learning/{course}/{courseVideoId}', [FrontController::class, 'learning'])->name('front.learning')->middleware('role:student|teacher');
+    Route::get('/learning/{course}/{courseVideoId}', [FrontController::class, 'learning'])->name('front.learning')->middleware('role:student|teacher|owner');
     Route::post('/checkout/store', [FrontController::class, 'checkout_store'])->name('front.checkout.store')->middleware('role:student');
 
     Route::prefix('admin')->name('admin.')->group(function (){
@@ -56,6 +57,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('course_videos', CourseVideoController::class)
         ->middleware('role:owner|teacher');
     });
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 require __DIR__.'/auth.php';
