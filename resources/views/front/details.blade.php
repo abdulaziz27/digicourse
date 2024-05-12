@@ -392,7 +392,7 @@
             </div>
         </div>
         <div class="w-full h-[51px] flex items-end border-t border-[#E7EEF2]">
-            <p class="mx-auto text-sm text-[#6D7786] -tracking-[2%]">All Rights Reserved DigiCourse BuildWithAngga 2024</p>
+            <p class="mx-auto text-sm text-[#6D7786] -tracking-[2%]">All Rights Reserved DigiCourse 2024</p>
         </div>
     </footer>
 
